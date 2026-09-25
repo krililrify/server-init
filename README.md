@@ -40,7 +40,7 @@
 使用 `root` 用户登录服务器后，执行：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/kkkm0/server-init/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/krililrify/server-init/main/install.sh)
 ```
 
 脚本会自动按照以下顺序执行：
@@ -146,7 +146,7 @@ Root privileges are required.
 Log in to your server as `root` and run:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/kkkm0/server-init/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/krililrify/server-init/main/install.sh)
 ```
 
 The script will automatically execute all initialization tasks in sequence.
