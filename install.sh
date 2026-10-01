@@ -1,3 +1,4 @@
+```bash
 #!/usr/bin/env bash
 
 set -euo pipefail
@@ -7,9 +8,9 @@ set -euo pipefail
 # Functions:
 # 1. Update apt
 # 2. Install curl
-# 3. Install Docker
-# 4. Enable / optimize BBR
-# 5. Run host audit
+# 3. Run host audit
+# 4. Install Docker
+# 5. Enable / optimize BBR
 # ============================================================
 
 RED='\033[0;31m'
@@ -92,12 +93,29 @@ else
 fi
 
 # ------------------------------------------------------------
-# Step 3: Install Docker
+# Step 3: Host audit
 # ------------------------------------------------------------
 
 echo
 echo "----------------------------------------------"
-echo "[3/5] Installing Docker"
+echo "[3/5] Running host audit"
+echo "----------------------------------------------"
+
+log "Running audit script..."
+
+curl -fsSL \
+    https://raw.githubusercontent.com/krililrify/jinzhi/main/audit-hosts.sh \
+    | bash
+
+success "Host audit completed."
+
+# ------------------------------------------------------------
+# Step 4: Install Docker
+# ------------------------------------------------------------
+
+echo
+echo "----------------------------------------------"
+echo "[4/5] Installing Docker"
 echo "----------------------------------------------"
 
 log "Running Docker installation script..."
@@ -120,36 +138,20 @@ else
 fi
 
 # ------------------------------------------------------------
-# Step 4: BBR
+# Step 5: BBR
 # ------------------------------------------------------------
 
 echo
 echo "----------------------------------------------"
-echo "[4/5] Enabling / optimizing BBR"
+echo "[5/5] Enabling / optimizing BBR"
 echo "----------------------------------------------"
 
 log "Running BBR optimization script..."
 
-bash <(curl -L -s https://sh.kinako.one/inits.sh)
+bash <(curl -fsSL \
+    https://raw.githubusercontent.com/krililrify/bbr/main/init.sh)
 
 success "BBR script completed."
-
-# ------------------------------------------------------------
-# Step 5: Host audit
-# ------------------------------------------------------------
-
-echo
-echo "----------------------------------------------"
-echo "[5/5] Running host audit"
-echo "----------------------------------------------"
-
-log "Running audit script..."
-
-curl -fsSL \
-    https://raw.githubusercontent.com/krililrify/jinzhi/main/audit-hosts.sh \
-    | bash
-
-success "Host audit completed."
 
 # ------------------------------------------------------------
 # Final
@@ -170,4 +172,4 @@ sysctl net.ipv4.tcp_congestion_control 2>/dev/null || true
 
 echo
 success "All tasks completed successfully."
-echo
+```
